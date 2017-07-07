@@ -7,10 +7,26 @@ use Waipy\WorkWechat\MsgCrypt;
 
 class WechatTest extends TestCase
 {
+  const app_id = 'ww5d63863c568c1b31'; // 必填
+  const corpId = 'ww5d63863c568c1b31';
+  const secret = 's669eEInJ-jHTMWQ0p_JeS5xNTxRfHapiEFD1RbeKOs'; // 必填
+  const token = 'Rlvm7B2eKw4UArqOLhe4XzEnrpeE6'; // 必填
+  const aes_key = '3XooA46i3e6xomma1bPyGnytFfhdVFSOBXtmUCwk5kV'; // 加密模式需要，其它模式不需要
+    
     public function testInfo()
     {
-        $wechat = new Wechat;
+        $wechat = new Wechat(self::corpId,self::secret);
         $this->assertEquals("this is Wechat Example", $wechat->info());
+   }
+
+    public function testGetToken(){
+        $wechat = new Wechat(self::corpId,self::secret);
+        $token = $wechat->getToken();
+        print($token);
+        // $this->assertEquals('abc',$wechat->getUserInfo('YsPkU32us8yWUCbXr2RudinycVhP46lq2uqFYrv3TyA'));
+        // $this->assertEquals("9Sw8rpTTbT7ez0Hu75vOJB0Z2koy1EIakhllq-xpL0uL1yZSsKUzFhC2GJiZHQ0n8JJ0ij_p78Sq_HVleGqz2aIwIL9n6mXbQe180ytv5HCNy68b63foWEpnX821ZEfG6z8wGfOb1aKsIXu9bJ73YBJwTMUCUFYD7GELCL0kLWRjw2WNVwMYpQW9-oPMWMx5RsT7-fQSjuPAzdC_TCn48Cw5CthkVJGO6lxS3tuoBAAGlwa4knx0z6_rfnK41H40bcRvYQrTy4rP3Cu4VEgFK-6Cppngcejhds2UadpkoVo",$token);
+        $this->assertEquals("hello",$wechat->createConnectUrl("http://sqmt.ipucao.com",'1000002'));
+ 
     }
     
     public function testVerifyRUL()
