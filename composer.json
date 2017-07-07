@@ -25,10 +25,5 @@
         "psr-4": {
             "Waipy\\WorkWechat\\": "src/WorkWechat/"
         }
-    },
-    "autoload-dev": {
-        "psr-4":{
-            "Waipy\\WorkWechat\\Tests\\": "tests/"
-        }
     }
 }
