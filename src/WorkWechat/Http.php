@@ -6,7 +6,6 @@ namespace Waipy\WorkWechat;
  *
  * 计算企业微信的消息签名接口.
  */
- use EasyWeChat\Support\Log;
  use GuzzleHttp\Client as HttpClient;
  use GuzzleHttp\HandlerStack;
  use Psr\Http\Message\ResponseInterface;
