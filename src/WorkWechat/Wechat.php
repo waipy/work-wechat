@@ -10,6 +10,7 @@ class Wechat
     const API_USERINFO_GET = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
     const API_AUTHORIZE = "https://open.weixin.qq.com/connect/oauth2/authorize";
     const API_CONNECT = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect";
+    const API_SEND = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
 
     protected $tokenJsonKey = 'access_token';
 
@@ -65,6 +66,54 @@ class Wechat
         ];
         return self::API_CONNECT."?".\http_build_query($params);
  
+    }
+
+    public function pushMsg($params){
+        $access_token = $this->getToken();
+        $http = $this->getHttp();
+        $result = $http->parseJSON($http->post(self::API_SEND.'?access_token='.$access_token,json_encode($params)));
+        return $result;
+ 
+    }
+
+    public function pushText($msg,$users,$agentid){
+        if(is_array($users)){
+            $usersStr = implode('|',$users);
+        }else{
+            $usersStr = $users;
+        }
+        $params = [
+            'touser'=> $usersStr,
+            'toparty' => "1",
+            'totag' => " ",
+            'msgtype' => 'text',
+            'agentid' => $agentid,
+            'text' => [
+                'content'=>$msg
+            ],
+            'safe' => 0
+        ];
+        return $this->pushMsg($params);
+    }
+
+    public function pushArticles($article,$users,$agentid){
+        if(is_array($users)){
+            $usersStr = implode('|',$users);
+        }else{
+            $usersStr = $users;
+        }
+        $params = [
+            'touser'=> $usersStr,
+            'toparty' => "1",
+            'totag' => " ",
+            'msgtype' => 'news',
+            'agentid' => $agentid,
+            'news' => [
+                "articles" => $article,
+            ],
+            'safe' => 0
+        ];
+        return $this->pushMsg($params);
     }
 
     public function getCode(){
