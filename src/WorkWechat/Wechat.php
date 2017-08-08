@@ -76,16 +76,15 @@ class Wechat
  
     }
 
-    public function pushText($msg,$users,$agentid){
-        if(is_array($users)){
-            $usersStr = implode('|',$users);
-        }else{
-            $usersStr = $users;
-        }
+    public function pushText($msg,$users,$parties,$tags,$agentid){
+        $usersStr = is_array($users)?implode('|',$users):$users;
+        $partiesStr = is_array($parties)?implode('|',$parties):$parties; 
+        $tagsStr = is_array($tags)?implode('|',$tags):$tags; 
+
         $params = [
             'touser'=> $usersStr,
-            'toparty' => "1",
-            'totag' => " ",
+            'toparty' => $partiesStr,
+            'totag' => $tagsStr,
             'msgtype' => 'text',
             'agentid' => $agentid,
             'text' => [
@@ -96,16 +95,15 @@ class Wechat
         return $this->pushMsg($params);
     }
 
-    public function pushArticles($article,$users,$agentid){
-        if(is_array($users)){
-            $usersStr = implode('|',$users);
-        }else{
-            $usersStr = $users;
-        }
+    public function pushArticles($article,$users,$parties,$tags,$agentid){
+        $usersStr = is_array($users)?implode('|',$users):$users;
+        $partiesStr = is_array($parties)?implode('|',$parties):$parties; 
+        $tagsStr = is_array($tags)?implode('|',$tags):$tags; 
+
         $params = [
             'touser'=> $usersStr,
-            'toparty' => "1",
-            'totag' => " ",
+            'toparty' => $partiesStr,
+            'totag' => $tagsStr,
             'msgtype' => 'news',
             'agentid' => $agentid,
             'news' => [
